@@ -45,7 +45,7 @@ class Preset extends BasePreset
 
             // Ask if we want to install presets
             foreach ($presets as $key => $preset) {
-                if($command->confirm("Do you want to run $key preset?")) {
+                if($command->confirm("Do you want to run " . $preset['name'] . " preset?")) {
                     // If yes, we add preset values to empty array where will put only the oes we want to install
                     array_push(static::$selectedPresets, $preset);
                 }
