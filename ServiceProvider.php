@@ -14,7 +14,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function boot()
     {
-        PresetCommand::macro('local-generate', function($command) {
+        PresetCommand::macro('codedazur', function($command) {
            Preset::install($command);
         });
     }

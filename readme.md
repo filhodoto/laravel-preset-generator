@@ -13,7 +13,7 @@ Add this repository to the repositories in your project's composer.json file.
     "repositories": [
         {
             "type": "git",
-            "url": "git@bitbucket.org:codedazur/laravel-preset-generator.git"
+            "url": "git@bitbucket.org:codedazur/laravel-presets.git"
         }
     ],
 	...
@@ -23,7 +23,7 @@ Add this repository to the repositories in your project's composer.json file.
 Then require the preset using composer.
 
 ```
-composer require codedazur/laravel-preset-generator
+composer require codedazur/laravel-presets
 
 ```
 
@@ -32,7 +32,7 @@ composer require codedazur/laravel-preset-generator
 ### 1. Run the Preset
 
 ```
-php artisan preset codedazur-presets-generator
+php artisan preset codedazur
 
 ```
 

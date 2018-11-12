@@ -26,7 +26,7 @@ class Preset extends BasePreset
             'name' => 'Vue',
             'repository' => 'git@bitbucket.org:codedazur/laravel-preset-vue.git',
             'require' => 'composer require codedazur/laravel-preset-vue:dev-develop',
-            'preset' => 'vue',
+            'preset' => 'vue-codedazur',
         ],
     ];
 
@@ -82,7 +82,7 @@ class Preset extends BasePreset
         // Decode composer.json so we can access values as arrays
         $packages = json_decode(file_get_contents(base_path('composer.json')), true);
 
-        // Define which array in package jason we want to look through
+        // Define which array in composer.json we want to look through
         $configurationKey = 'repositories';
 
         // Check if repositories exist, if not create it
@@ -90,12 +90,30 @@ class Preset extends BasePreset
             $packages[$configurationKey]  = [];
         }
 
+        // Save existent repositories in array
+        $currentRepositories = [];
+        foreach ($packages[$configurationKey] as $repository) {
+            array_push($currentRepositories, $repository['url']);
+        }
+
+
         // For each preset we want to install
         foreach ($selectedPresets as $key => $preset) {
+
+            // Check if repository already exists
+            $hasRepository = array_filter($currentRepositories, function ($repository) use ($preset) {
+                return $repository === $preset['repository'];
+            });
+
+            // If repository already exists, do nothing
+            if ($hasRepository) {
+                return;
+            }
+
             // Get number of repositories
             $count = count($packages[$configurationKey]);
 
-            // 3. Add repository to repositories last position (using repositories number)
+            // Add repository to repositories last position (using repositories number)
             $packages[$configurationKey][$count] = [
                 "type"=> "git",
                 "url"=> $preset['repository']
